@@ -17,6 +17,8 @@ public partial class CompanyTestContext : DbContext
 
     public virtual DbSet<Claim> Claims { get; set; }
 
+    public virtual DbSet<Credential> Credentials { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
@@ -39,6 +41,17 @@ public partial class CompanyTestContext : DbContext
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Claims_Products");
+        });
+
+        modelBuilder.Entity<Credential>(entity =>
+        {
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Value).HasMaxLength(50);
+
+            entity.HasOne(d => d.User).WithMany(p => p.Credentials)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Credentials_Users");
         });
 
         modelBuilder.Entity<Order>(entity =>

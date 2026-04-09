@@ -7,7 +7,7 @@ namespace API_CompanyTest.Services
 {
     public interface ITokenService
     {
-        string CreateToken(string userId);
+        string CreateToken(string userId, string role);
     }
 
     public class TokenService : ITokenService
@@ -22,11 +22,12 @@ namespace API_CompanyTest.Services
         }
 
 
-        public string CreateToken(string userId)
+        public string CreateToken(string userId, string role)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId)
+                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.Role, role)
             };
             var key = _key;
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -42,5 +43,6 @@ namespace API_CompanyTest.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
     }
 }
