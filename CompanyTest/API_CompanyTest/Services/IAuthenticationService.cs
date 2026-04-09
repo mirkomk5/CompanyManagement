@@ -1,0 +1,30 @@
+﻿using API_CompanyTest.Repositories;
+using BE_CompanyTest.Models;
+using DTO_CompanyTest;
+
+namespace API_CompanyTest.Services
+{
+    public interface IAuthenticationService
+    {
+        Task<DTO_AuthResponse> RegisterAsync(DTO_Credentials credentials);
+    }
+
+    public class AuthenticationService(IAuthRepository authRepo, ITokenService tokenService) : IAuthenticationService
+    {
+        public async Task<DTO_AuthResponse> RegisterAsync(DTO_Credentials credentials)
+        {
+            var result = await authRepo.RegisterAsync(credentials);
+            var tokenId = tokenService.CreateToken(result.Id, "user");
+
+            if (result == null) return null;
+
+            DTO_AuthResponse response = new DTO_AuthResponse
+            {
+                UserId = result.Id,
+                TokenId = tokenId
+            };
+
+            return response;
+        }
+    }
+}

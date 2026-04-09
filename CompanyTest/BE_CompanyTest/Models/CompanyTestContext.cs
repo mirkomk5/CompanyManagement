@@ -46,7 +46,7 @@ public partial class CompanyTestContext : DbContext
         modelBuilder.Entity<Credential>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.Value).HasMaxLength(50);
+            entity.Property(e => e.Value).HasMaxLength(500);
 
             entity.HasOne(d => d.User).WithMany(p => p.Credentials)
                 .HasForeignKey(d => d.UserId)

@@ -7,7 +7,7 @@ namespace API_CompanyTest.Services
 {
     public interface ITokenService
     {
-        string CreateToken(string userId, string role);
+        string CreateToken(Guid userId, string role);
     }
 
     public class TokenService : ITokenService
@@ -22,11 +22,11 @@ namespace API_CompanyTest.Services
         }
 
 
-        public string CreateToken(string userId, string role)
+        public string CreateToken(Guid userId, string role)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Role, role)
             };
             var key = _key;

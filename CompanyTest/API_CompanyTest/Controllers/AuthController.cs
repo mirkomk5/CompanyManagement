@@ -1,5 +1,6 @@
 ﻿using API_CompanyTest.Services;
 using AutoMapper;
+using DTO_CompanyTest;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_CompanyTest.Controllers
@@ -10,20 +11,24 @@ namespace API_CompanyTest.Controllers
     {
         private ITokenService tokenService;
         private IMapper mapper;
+        private IAuthenticationService authService;
 
-        public AuthController(ITokenService tokenService, IMapper mapper)
+        public AuthController(ITokenService tokenService,IAuthenticationService authService, IMapper mapper)
         {
             this.tokenService = tokenService;
+            this.authService = authService;
             this.mapper = mapper;
         }
 
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register([FromBody]DTO_Credentials credentials)
         {
-            var token = tokenService.CreateToken(username, password);
-            return Ok(token);
+            var task = await authService.RegisterAsync(credentials);
+            if(task == null) return BadRequest("Something wrong during user profile creation");
+
+            return Ok(task);
         }
     }
 }
