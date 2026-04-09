@@ -17,6 +17,8 @@ public partial class User
 
     public int? AdminLevel { get; set; }
 
+    public string? Email { get; set; }
+
     public virtual ICollection<Credential> Credentials { get; set; } = new List<Credential>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

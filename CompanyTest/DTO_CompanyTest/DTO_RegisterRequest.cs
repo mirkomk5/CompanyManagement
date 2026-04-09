@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DTO_CompanyTest
 {
-    public class DTO_Credentials
+    public class DTO_RegisterRequest
     {
+        public required string Email { get; set; }
         public required string Name { get; set; }
         public required string Surname { get; set; }
         public required string Password { get; set; }

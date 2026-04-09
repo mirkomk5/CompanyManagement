@@ -84,6 +84,7 @@ public partial class CompanyTestContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Address).HasMaxLength(250);
             entity.Property(e => e.AdminLevel).HasDefaultValue(0);
+            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.Surname).HasMaxLength(50);
         });
