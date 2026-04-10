@@ -27,7 +27,7 @@ namespace API_CompanyTest.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(Constants.Constants.AdminLevel, adminLevel)
+                new Claim(Miscellanous.Constants.AdminLevel, adminLevel)
             };
             var key = _key;
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -1,4 +1,4 @@
-﻿namespace API_CompanyTest.Constants
+﻿namespace API_CompanyTest.Miscellanous
 {
     public class Constants
     {

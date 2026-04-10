@@ -20,20 +20,24 @@ namespace API_CompanyTest.Controllers
             _mapper = mapper;
         }
 
+        private (bool state, string message) IsValidAdminLevel(int requiredLevel)
+        {
+            if (!int.TryParse(User.FindFirst(Miscellanous.Constants.AdminLevel)?.Value, out var result))
+                return (false, "Invalid token: cannot read admin level");
+
+            if (result < requiredLevel)
+                return (false, "Access denied: insufficient permissions");
+            return (true, "Access granted");
+        }
 
         [HttpGet]
         [Route("get-all")]
         [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
-            if (!int.TryParse(User.FindFirst(Constants.Constants.AdminLevel)?.Value, out var adminLevel))            
-                return Forbid("Invalid token: cannot read admin level");
-            
-            if(adminLevel < 1) return StatusCode(StatusCodes.Status403Forbidden, new
-            {
-                error = "Access denied",
-                message = "You don't have the permission to this resource"
-            });
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(403, adminCheck.message);
 
             var result = await _userService.GetAllUsersAsync();
             return Ok(result);
@@ -44,9 +48,29 @@ namespace API_CompanyTest.Controllers
         [Authorize]
         public async Task<IActionResult> CreateUser([FromBody] DTO_User userDto)
         {
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(403, adminCheck.message);
+
             var user = _mapper.Map<User>(userDto);
             var result = await _userService.CreateUserAsync(userDto);
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser([FromRoute] string id)
+        {
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(403, adminCheck.message);
+
+            var result = await _userService.DeleteUserAsync(id);
+            if (!result)
+                return NotFound("User not found");
+
+            return Ok("User deleted successfully");
         }
     }
 }

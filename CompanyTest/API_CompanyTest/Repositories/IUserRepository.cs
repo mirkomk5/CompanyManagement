@@ -8,6 +8,7 @@ namespace API_CompanyTest.Repositories
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
         Task CreateUserAsync(User user);
+        Task<bool> DeleteUserAsync(string userId);
     }
 
     public class UserRepository(CompanyTestContext context) : IUserRepository
@@ -21,6 +22,21 @@ namespace API_CompanyTest.Repositories
         {
             context.Users.Add(user);
             var result = await context.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteUserAsync(string userId)
+        {
+            if (!Guid.TryParse(userId, out var parsedGuid)) return false;
+
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == parsedGuid);
+            if (user != null)
+            {
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
     }
 }
