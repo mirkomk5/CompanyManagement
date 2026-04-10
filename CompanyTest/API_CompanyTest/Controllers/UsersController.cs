@@ -29,7 +29,11 @@ namespace API_CompanyTest.Controllers
             if (!int.TryParse(User.FindFirst(Constants.Constants.AdminLevel)?.Value, out var adminLevel))            
                 return Forbid("Invalid token: cannot read admin level");
             
-            if(adminLevel < 1) return Forbid("You don't have permission to access this resource");
+            if(adminLevel < 1) return StatusCode(StatusCodes.Status403Forbidden, new
+            {
+                error = "Access denied",
+                message = "You don't have the permission to this resource"
+            });
 
             var result = await _userService.GetAllUsersAsync();
             return Ok(result);
