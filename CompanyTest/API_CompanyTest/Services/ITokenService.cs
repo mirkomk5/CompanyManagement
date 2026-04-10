@@ -22,12 +22,12 @@ namespace API_CompanyTest.Services
         }
 
 
-        public string CreateToken(Guid userId, string role)
+        public string CreateToken(Guid userId, string adminLevel)
         {
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(Constants.Constants.AdminLevel, adminLevel)
             };
             var key = _key;
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

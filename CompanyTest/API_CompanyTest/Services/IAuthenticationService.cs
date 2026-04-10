@@ -16,7 +16,7 @@ namespace API_CompanyTest.Services
         public async Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest credentials)
         {
             var result = await authRepo.RegisterAsync(credentials);
-            var tokenId = tokenService.CreateToken(result.Id, "user");
+            var tokenId = tokenService.CreateToken(result.Id, "0");
 
             if (result == null) return null;
 
@@ -35,7 +35,7 @@ namespace API_CompanyTest.Services
             var task = await authRepo.LoginAsync(credentials);
             if(task == null) return null;
 
-            var tokenId = tokenService.CreateToken(task.Id, "user");
+            var tokenId = tokenService.CreateToken(task.Id, "0");
             DTO_AuthResponse response = new DTO_AuthResponse
             {
                 UserId = task.Id,
