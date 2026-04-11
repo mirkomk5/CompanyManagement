@@ -35,6 +35,9 @@ namespace API_CompanyTest.Services
 
         public async Task<DTO_ResponseMessage> DeleteOrderAsync(Guid id)
         {
+            if(id == Guid.Empty)
+                return new DTO_ResponseMessage(false, "Error: Invalid order ID");
+
             // validazione ordine
             var order = await context.Orders.FirstOrDefaultAsync(x => x.Id == id);
             if (order == null)
@@ -44,9 +47,17 @@ namespace API_CompanyTest.Services
             return result;
         }
 
-        public Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order)
+        public async Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order_dto)
         {
-            throw new NotImplementedException();
+            if(id == Guid.Empty)
+                return new DTO_ResponseMessage(false, "Error: Invalid order ID");
+
+            var ord = await context.Orders.FirstOrDefaultAsync(x => x.Id == id);
+            if (ord == null)
+                return new DTO_ResponseMessage(false, "Error: Order not found");
+
+            var result = await orderRepo.UpdateOrderAsync(id, order_dto);
+            return result;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace API_CompanyTest.Repositories
     {
         Task<DTO_ResponseMessage> CreateOrderAsync(Order order);
         Task<DTO_ResponseMessage> DeleteOrderAsync(Order order);
-        Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, Order order);
+        Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order);
     }
 
     public class OrdersRepository(CompanyTestContext context) : IOrdersRepository
@@ -28,22 +28,27 @@ namespace API_CompanyTest.Repositories
         }
         public async Task<DTO_ResponseMessage> DeleteOrderAsync(Order order)
         {
-            try
-            {
-                context.Remove(order);
-                var result = await context.SaveChangesAsync();
-                return new DTO_ResponseMessage(result > 0, result > 0 ? "Order deleted successfully." : "Failed to delete order.");
-            }
-            catch (Exception ex)
-            {
-                return new DTO_ResponseMessage(false, $"Error deleting order: {ex.Message}");
+            context.Remove(order);
+            var result = await context.SaveChangesAsync();
+            return new DTO_ResponseMessage(result > 0, result > 0 ? "Order deleted successfully." : "Failed to delete order.");
 
-            }
         }
 
-        public async Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, Order order)
+        public async Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order_dto)
         {
-            throw new NotImplementedException();
+            var order = await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+
+            if(order_dto.CustomerId.HasValue)
+                order.CustomerId = order_dto.CustomerId.Value;
+
+            if(order_dto.ProductId.HasValue)
+                order.ProductId = order_dto.ProductId.Value;
+
+            if(!string.IsNullOrEmpty(order_dto.Notes))
+                order.Notes = order_dto.Notes;
+
+            var result = await context.SaveChangesAsync();
+            return new DTO_ResponseMessage(result > 0, result > 0 ? "Order updated successfully." : "Failed to update order.");
         }
     }   
 }

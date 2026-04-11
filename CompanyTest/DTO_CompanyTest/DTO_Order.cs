@@ -8,8 +8,8 @@ namespace DTO_CompanyTest
 {
     public class DTO_Order
     {
-        public Guid ProductId { get; set; }
-        public Guid CustomerId { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? CustomerId { get; set; }
         public string? Notes { get; set; }
     }
 }

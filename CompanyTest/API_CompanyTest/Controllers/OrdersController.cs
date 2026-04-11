@@ -40,6 +40,20 @@ namespace API_CompanyTest.Controllers
             return result.State ? Ok(result.Message) : BadRequest(result.Message);
         }
 
+        [HttpPatch("update/{id}")]
+        public async Task<IActionResult> UpdateOrder(Guid id, [FromBody] DTO_Order order)
+        {
+            if(id == Guid.Empty)
+                return BadRequest("Error: Invalid order ID");
+
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(403, adminCheck.message);
+
+            var result = await service.UpdateOrderAsync(id, order);
+            return result.State ? Ok(result.Message) : BadRequest(result.Message);
+        }
+
         // ***********
 
         private (bool state, string message) IsValidAdminLevel(int requiredLevel)

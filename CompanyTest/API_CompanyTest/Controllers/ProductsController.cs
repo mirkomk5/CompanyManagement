@@ -53,7 +53,7 @@ namespace API_CompanyTest.Controllers
             return Ok(result);
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPatch("update/{id}")]
         public async Task<IActionResult> UpdateProduct(string id, [FromBody] DTO_Product dtoProduct)
         {
             // Validazione admin
