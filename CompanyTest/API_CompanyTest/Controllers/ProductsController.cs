@@ -70,6 +70,22 @@ namespace API_CompanyTest.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteProduct(string id)
+        {
+            // validazione admin
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(403, adminCheck.message);
+
+            // Validazione id   
+            if (!Guid.TryParse(id, out var guidId))
+                return BadRequest("Invalid product ID format");
+
+            var result = await service.DeleteProductAsync(guidId);
+            return Ok(result);
+        }
+
 
         private (bool state, string message) IsValidAdminLevel(int requiredLevel)
         {

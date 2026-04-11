@@ -11,7 +11,7 @@ namespace API_CompanyTest.Repositories
         Task<bool> CreateProductAsync(Product product);
         Task<bool> SP_CreateProductAsync(Product product);
         Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product product);
-        Task<bool> DeleteProductAsync(Guid id);
+        Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<Product>?> GetAllProductsAsync();
     }
@@ -64,16 +64,21 @@ namespace API_CompanyTest.Repositories
             }
         }
 
-        public async Task<bool> DeleteProductAsync(Guid id)
+        public async Task<DTO_ResponseMessage> DeleteProductAsync(Guid id)
         {
-            var product = context.Products.FirstOrDefault(p => p.Id == id);
+            // Per una questione di legame di product con order, mi assicuro di eliminare prima il prodotto dagli ordini
+            var orders = context.Orders.Where(o => o.ProductId == id);
+            if(orders != null)
+                context.Orders.RemoveRange(orders);
 
+            // .. proseguo poi con l'eliminazione del prodotto
+            var product = context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
-                return false;
+                return new DTO_ResponseMessage(false, "Error: No product id found");
 
             context.Products.Remove(product);
             await context.SaveChangesAsync();
-            return true;
+            return new DTO_ResponseMessage(true, "Product removed succesfully");
         }
 
         public async Task<IEnumerable<Product>?> GetAllProductsAsync()
