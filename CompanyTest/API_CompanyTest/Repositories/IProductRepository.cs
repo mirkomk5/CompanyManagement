@@ -1,5 +1,6 @@
 ﻿using BE_CompanyTest.Models;
 using Dapper;
+using DTO_CompanyTest;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ namespace API_CompanyTest.Repositories
     {
         Task<bool> CreateProductAsync(Product product);
         Task<bool> SP_CreateProductAsync(Product product);
-        Task<bool> UpdateProductAsync(Product product);
+        Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product product);
         Task<bool> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<Product>?> GetAllProductsAsync();
@@ -95,23 +96,30 @@ namespace API_CompanyTest.Repositories
             return product;
         }
 
-        public async Task<bool> UpdateProductAsync(Product product)
+        public async Task<DTO_ResponseMessage> UpdateProductAsync(Guid guid, DTO_Product dtoProduct)
         {
-            var target = await context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
+            var target = await context.Products.FirstOrDefaultAsync(p => p.Id == guid);
+
+            if (target == null)            
+                return new DTO_ResponseMessage(false, "Product not found");
             
-            if(target == null)
-                return false;
 
             try
             {
-                context.Products.Update(product);
+                target.ProductName = dtoProduct.ProductName;
+                target.Description = dtoProduct.Description;
+                target.Price = dtoProduct.Price;
+                target.Discount = dtoProduct.Discount;
+
+                //context.Entry(target).CurrentValues.SetValues(product);
+
                 await context.SaveChangesAsync();
-                return true;
+                return new DTO_ResponseMessage(true, "Product update succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating product: {ex.Message}");
-                return false;
+                return new DTO_ResponseMessage(false, $"Error during update: {ex.Message}");
             }
         }
     }

@@ -9,7 +9,7 @@ namespace API_CompanyTest.Services
     {
         Task<bool> CreateProductAsync(DTO_Product product);
         Task<bool> SP_CreateProductAsync(DTO_Product product);
-        Task<bool> UpdateProductAsync(DTO_Product product);
+        Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
         Task<bool> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<DTO_Product>?> GetAllProductsAsync();
@@ -47,10 +47,9 @@ namespace API_CompanyTest.Services
             return product;
         }
 
-        public async Task<bool> UpdateProductAsync(DTO_Product product)
+        public async Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
         {
-            var mappedProduct = mapper.Map<Product>(product);
-            var result = await productRepo.UpdateProductAsync(mappedProduct);
+            var result = await productRepo.UpdateProductAsync(id, dtoProduct);
             return result;
         }
     }
