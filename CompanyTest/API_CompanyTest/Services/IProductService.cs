@@ -7,8 +7,8 @@ namespace API_CompanyTest.Services
 {
     public interface IProductService
     {
-        Task<bool> CreateProductAsync(DTO_Product product);
-        Task<bool> SP_CreateProductAsync(DTO_Product product);
+        Task<DTO_ResponseMessage> CreateProductAsync(DTO_Product product);
+        Task<DTO_ResponseMessage> SP_CreateProductAsync(DTO_Product product);
         Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
         Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
@@ -17,13 +17,14 @@ namespace API_CompanyTest.Services
 
     public class ProductService(IMapper mapper, IProductRepository productRepo) : IProductService
     {
-        public async Task<bool> CreateProductAsync(DTO_Product product)
+        public async Task<DTO_ResponseMessage> CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
-            return await productRepo.CreateProductAsync(mappedProduct);
+            var result = await productRepo.CreateProductAsync(mappedProduct);
+            return result;
         }
 
-        public async Task<bool> SP_CreateProductAsync(DTO_Product product)
+        public async Task<DTO_ResponseMessage> SP_CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
             return await productRepo.SP_CreateProductAsync(mappedProduct);

@@ -8,8 +8,8 @@ namespace API_CompanyTest.Repositories
 {
     public interface IProductRepository
     {
-        Task<bool> CreateProductAsync(Product product);
-        Task<bool> SP_CreateProductAsync(Product product);
+        Task<DTO_ResponseMessage> CreateProductAsync(Product product);
+        Task<DTO_ResponseMessage> SP_CreateProductAsync(Product product);
         Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product product);
         Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
@@ -18,22 +18,22 @@ namespace API_CompanyTest.Repositories
 
     public class ProductRepository(CompanyTestContext context) : IProductRepository
     {
-        public async Task<bool> CreateProductAsync(Product product)
+        public async Task<DTO_ResponseMessage> CreateProductAsync(Product product)
         {
             try
             {
                 context.Products.Add(product);
                 await context.SaveChangesAsync();
-                return true;
+                return new DTO_ResponseMessage(true, "Product created succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating product: {ex.Message}");
-                return false;
+                return new DTO_ResponseMessage(false, $"Error during creation: {ex.Message}");
             }
         }
 
-        public async Task<bool> SP_CreateProductAsync(Product product)
+        public async Task<DTO_ResponseMessage> SP_CreateProductAsync(Product product)
         {
             string connectionString = context.Database.GetConnectionString();
 
@@ -55,12 +55,12 @@ namespace API_CompanyTest.Repositories
                         commandType: System.Data.CommandType.StoredProcedure
                     );
                 }
-                return true;
+                return new DTO_ResponseMessage(true, "Product created succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating product via stored procedure: {ex.Message}");
-                return false;
+                return new DTO_ResponseMessage(false, $"Error during creation: {ex.Message}");
             }
         }
 
