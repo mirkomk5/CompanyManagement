@@ -46,42 +46,50 @@ namespace FE_CompanyTest
             // 
             mainIcon.BackgroundImage = Properties.Resources.company_icon;
             mainIcon.BackgroundImageLayout = ImageLayout.Stretch;
-            mainIcon.Location = new Point(132, 66);
+            mainIcon.Location = new Point(116, 50);
+            mainIcon.Margin = new Padding(3, 2, 3, 2);
             mainIcon.Name = "mainIcon";
-            mainIcon.Size = new Size(129, 122);
+            mainIcon.Size = new Size(113, 92);
             mainIcon.TabIndex = 0;
             mainIcon.TabStop = false;
             // 
             // textBoxEmail
             // 
-            textBoxEmail.Location = new Point(76, 238);
+            textBoxEmail.Location = new Point(66, 178);
+            textBoxEmail.Margin = new Padding(3, 2, 3, 2);
             textBoxEmail.Name = "textBoxEmail";
             textBoxEmail.PlaceholderText = "Inserisci email...";
-            textBoxEmail.Size = new Size(237, 27);
+            textBoxEmail.Size = new Size(208, 23);
             textBoxEmail.TabIndex = 1;
             // 
             // textBoxPass
             // 
-            textBoxPass.Location = new Point(76, 285);
+            textBoxPass.Location = new Point(66, 214);
+            textBoxPass.Margin = new Padding(3, 2, 3, 2);
             textBoxPass.Name = "textBoxPass";
             textBoxPass.PlaceholderText = "Inserisci password...";
-            textBoxPass.Size = new Size(237, 27);
+            textBoxPass.Size = new Size(208, 23);
             textBoxPass.TabIndex = 2;
             textBoxPass.UseSystemPasswordChar = true;
             // 
             // buttonTogglePass
             // 
-            buttonTogglePass.Location = new Point(308, 283);
+            buttonTogglePass.BackgroundImage = Properties.Resources.toggle_password;
+            buttonTogglePass.BackgroundImageLayout = ImageLayout.Stretch;
+            buttonTogglePass.Location = new Point(270, 212);
+            buttonTogglePass.Margin = new Padding(3, 2, 3, 2);
             buttonTogglePass.Name = "buttonTogglePass";
-            buttonTogglePass.Size = new Size(29, 29);
+            buttonTogglePass.Size = new Size(25, 25);
             buttonTogglePass.TabIndex = 3;
             buttonTogglePass.UseVisualStyleBackColor = true;
+            buttonTogglePass.Click += buttonTogglePass_Click;
             // 
             // buttonLogin
             // 
-            buttonLogin.Location = new Point(76, 387);
+            buttonLogin.Location = new Point(66, 290);
+            buttonLogin.Margin = new Padding(3, 2, 3, 2);
             buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new Size(237, 29);
+            buttonLogin.Size = new Size(207, 22);
             buttonLogin.TabIndex = 4;
             buttonLogin.Text = "Login";
             buttonLogin.UseVisualStyleBackColor = true;
@@ -89,9 +97,10 @@ namespace FE_CompanyTest
             // 
             // buttonRegister
             // 
-            buttonRegister.Location = new Point(76, 422);
+            buttonRegister.Location = new Point(66, 316);
+            buttonRegister.Margin = new Padding(3, 2, 3, 2);
             buttonRegister.Name = "buttonRegister";
-            buttonRegister.Size = new Size(237, 29);
+            buttonRegister.Size = new Size(207, 22);
             buttonRegister.TabIndex = 5;
             buttonRegister.Text = "Register";
             buttonRegister.UseVisualStyleBackColor = true;
@@ -100,17 +109,17 @@ namespace FE_CompanyTest
             // labelLog
             // 
             labelLog.ForeColor = Color.IndianRed;
-            labelLog.Location = new Point(76, 330);
+            labelLog.Location = new Point(66, 248);
             labelLog.Name = "labelLog";
-            labelLog.Size = new Size(233, 39);
+            labelLog.Size = new Size(204, 29);
             labelLog.TabIndex = 6;
             // 
             // LoginForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.None;
-            ClientSize = new Size(402, 510);
+            ClientSize = new Size(352, 382);
             Controls.Add(labelLog);
             Controls.Add(buttonRegister);
             Controls.Add(buttonLogin);
@@ -118,6 +127,7 @@ namespace FE_CompanyTest
             Controls.Add(textBoxPass);
             Controls.Add(textBoxEmail);
             Controls.Add(mainIcon);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "LoginForm";
             Text = "Login";
             ((System.ComponentModel.ISupportInitialize)mainIcon).EndInit();
@@ -125,32 +135,7 @@ namespace FE_CompanyTest
             PerformLayout();
         }
 
-        private void buttonRegister_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private async void buttonLogin_Click(object sender, EventArgs e)
-        {
-            DTO_AuthRequest dto_Auth = new DTO_AuthRequest()
-            {
-                Email = textBoxEmail.Text,
-                Password = textBoxPass.Text
-            };
-
-            AuthService authService = new AuthService();
-            var result = await authService.LoginAsync(dto_Auth);
-
-            if(result == null)
-            {
-                labelLog.ForeColor = Color.IndianRed;
-                labelLog.Text = "Login fallito. Controlla email e password.";
-                return;
-            }
-
-            labelLog.ForeColor = Color.Blue;
-            labelLog.Text = "Login riuscito!";
-        }
+        
 
         #endregion
 

@@ -13,6 +13,7 @@ namespace FE_CompanyTest.Services
     {
         private readonly string _baseUrl = "https://localhost:7110/v1/";
         private readonly string _apiLogin = "Auth/login";
+        private readonly string _apiRegister = "Auth/register";
         private readonly HttpClient _httpClient;
 
         public AuthService()
@@ -34,6 +35,16 @@ namespace FE_CompanyTest.Services
                 return null;
             }
             
+        }
+
+        public async Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest dto_register)
+        {
+            var result = await _httpClient.PostAsJsonAsync(_baseUrl + _apiRegister, dto_register);
+            if (!result.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return result.Content.ReadFromJsonAsync<DTO_AuthResponse>().Result;
         }
     }
 }
