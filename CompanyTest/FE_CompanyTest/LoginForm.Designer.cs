@@ -97,12 +97,15 @@ namespace FE_CompanyTest
             // 
             // buttonRegister
             // 
+            buttonRegister.FlatStyle = FlatStyle.Popup;
+            buttonRegister.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonRegister.ForeColor = Color.RoyalBlue;
             buttonRegister.Location = new Point(66, 316);
             buttonRegister.Margin = new Padding(3, 2, 3, 2);
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(207, 22);
             buttonRegister.TabIndex = 5;
-            buttonRegister.Text = "Register";
+            buttonRegister.Text = "oppure Registrati";
             buttonRegister.UseVisualStyleBackColor = true;
             buttonRegister.Click += buttonRegister_Click;
             // 
@@ -135,7 +138,7 @@ namespace FE_CompanyTest
             PerformLayout();
         }
 
-        
+
 
         #endregion
 
