@@ -11,6 +11,7 @@ namespace API_CompanyTest.Services
         Task<DTO_ResponseMessage> CreateOrderAsync(DTO_Order order);
         Task<DTO_ResponseMessage> DeleteOrderAsync(Guid id);
         Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order);
+        Task<List<DTO_OrderTable>> GetOrdersAsync(int from, int resultsAmount);
     }
 
     public class OrderService(CompanyTestContext context, IMapper mapper, IOrdersRepository orderRepo) : IOrderService
@@ -47,6 +48,7 @@ namespace API_CompanyTest.Services
             return result;
         }
 
+
         public async Task<DTO_ResponseMessage> UpdateOrderAsync(Guid id, DTO_Order order_dto)
         {
             if(id == Guid.Empty)
@@ -59,5 +61,16 @@ namespace API_CompanyTest.Services
             var result = await orderRepo.UpdateOrderAsync(id, order_dto);
             return result;
         }
+
+
+        public async Task<List<DTO_OrderTable>> GetOrdersAsync(int from, int resultsAmount)
+        {
+            if (from < 0 || resultsAmount <= 0)
+                return null;
+
+            var result = await orderRepo.GetOrdersAsync(from, resultsAmount);
+            return result;
+        }
+
     }
 }

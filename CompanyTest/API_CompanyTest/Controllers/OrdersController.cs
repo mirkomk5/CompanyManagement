@@ -54,6 +54,20 @@ namespace API_CompanyTest.Controllers
             return result.State ? Ok(result.Message) : BadRequest(result.Message);
         }
 
+        [HttpGet("ordersTable/{from}/{amount}")]
+        public async Task<ActionResult<IEnumerable<DTO_OrderTable>>> GetOrdersTable(int from, int amount)
+        {
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(401, "Unauthorized");
+
+            int page = from < 1 ? 1 : from;
+            int size = amount < 1 ? 10 : amount;
+
+            var result = await service.GetOrdersAsync(from, amount);
+            return StatusCode(200, result);
+        }
+
         // ***********
 
         private (bool state, string message) IsValidAdminLevel(int requiredLevel)

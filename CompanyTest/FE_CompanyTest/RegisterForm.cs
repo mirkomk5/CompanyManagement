@@ -46,6 +46,13 @@ namespace FE_CompanyTest
 
             labelLog.ForeColor = result.Success == true ? Color.Blue : Color.IndianRed;
             labelLog.Text = result.Message;
+
+            if (result.Success == false) return;
+
+            // Show Home dialog
+            this.Hide();
+            Home homeDialog = new Home();
+            homeDialog.ShowDialog();
         }
 
 
