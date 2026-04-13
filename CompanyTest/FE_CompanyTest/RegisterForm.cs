@@ -1,5 +1,7 @@
 ﻿using DTO_CompanyTest;
+using FE_CompanyTest.Interfaces;
 using FE_CompanyTest.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,9 +18,14 @@ namespace FE_CompanyTest
     {
         private bool _passIsVisible = false;
 
-        public RegisterForm()
+        private readonly IAuthService _authService;
+        private readonly IServiceProvider _serviceProvider;
+
+        public RegisterForm(IAuthService authService, IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _authService = authService;
+            _serviceProvider = serviceProvider;
         }
 
         private void buttonTogglePass_Click(object sender, EventArgs e)
@@ -41,8 +48,7 @@ namespace FE_CompanyTest
                 Surname = textBoxSurname.Text
             };
 
-            AuthService authService = new AuthService();
-            var result = await authService.RegisterAsync(dto_Register);
+            var result = await _authService.RegisterAsync(dto_Register);
 
             labelLog.ForeColor = result.Success == true ? Color.Blue : Color.IndianRed;
             labelLog.Text = result.Message;
@@ -51,8 +57,9 @@ namespace FE_CompanyTest
 
             // Show Home dialog
             this.Hide();
-            Home homeDialog = new Home();
-            homeDialog.ShowDialog();
+            
+            var homeForm = _serviceProvider.GetRequiredService<Home>();
+            homeForm.ShowDialog();
         }
 
 

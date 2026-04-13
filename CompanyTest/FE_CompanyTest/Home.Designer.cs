@@ -29,33 +29,74 @@
         private void InitializeComponent()
         {
             orderDataGrid = new DataGridView();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)orderDataGrid).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             SuspendLayout();
             // 
             // orderDataGrid
             // 
             orderDataGrid.BackgroundColor = SystemColors.ControlLightLight;
             orderDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            orderDataGrid.Location = new Point(12, 30);
+            orderDataGrid.Location = new Point(6, 6);
             orderDataGrid.Name = "orderDataGrid";
-            orderDataGrid.Size = new Size(645, 403);
+            orderDataGrid.Size = new Size(979, 397);
             orderDataGrid.TabIndex = 0;
             orderDataGrid.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(12, 33);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(999, 432);
+            tabControl1.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(orderDataGrid);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(991, 404);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Ordini";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(991, 404);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Prodotti";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(856, 527);
-            Controls.Add(orderDataGrid);
+            ClientSize = new Size(1023, 477);
+            Controls.Add(tabControl1);
             Name = "Home";
             Text = "Home";
             ((System.ComponentModel.ISupportInitialize)orderDataGrid).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView orderDataGrid;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
     }
 }

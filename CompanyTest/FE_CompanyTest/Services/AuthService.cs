@@ -16,6 +16,9 @@ namespace FE_CompanyTest.Services
         private readonly string _apiRegister = "Auth/register";
         private readonly HttpClient _httpClient;
 
+
+        public DTO_AuthResponse AuthResponse { get; set; }   
+
         public AuthService()
         {
             _httpClient = new HttpClient();
@@ -28,6 +31,7 @@ namespace FE_CompanyTest.Services
             if (result.IsSuccessStatusCode)
             {
                 var response = await result.Content.ReadFromJsonAsync<DTO_AuthResponse>();
+                AuthResponse = response;
                 return response;
             }
             else
@@ -40,11 +44,13 @@ namespace FE_CompanyTest.Services
         public async Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest dto_register)
         {
             var result = await _httpClient.PostAsJsonAsync(_baseUrl + _apiRegister, dto_register);
-            if (!result.IsSuccessStatusCode)
+            if (!result.IsSuccessStatusCode || result == null)
             {
                 return null;
             }
-            return result.Content.ReadFromJsonAsync<DTO_AuthResponse>().Result;
+
+            AuthResponse = result.Content.ReadFromJsonAsync<DTO_AuthResponse>().Result;
+            return AuthResponse;
         }
     }
 }

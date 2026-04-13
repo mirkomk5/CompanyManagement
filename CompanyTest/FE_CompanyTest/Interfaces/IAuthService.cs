@@ -11,5 +11,7 @@ namespace FE_CompanyTest.Interfaces
     {
         Task<DTO_AuthResponse> LoginAsync(DTO_AuthRequest dto_auth);
         Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest dto_register);
+
+        DTO_AuthResponse AuthResponse { get; set; }
     }
 }

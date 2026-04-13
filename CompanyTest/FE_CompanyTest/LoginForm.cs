@@ -1,15 +1,21 @@
 using DTO_CompanyTest;
+using FE_CompanyTest.Interfaces;
 using FE_CompanyTest.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FE_CompanyTest
 {
     public partial class LoginForm : Form
     {
         private bool _passIsVisible = false;
+        private readonly IAuthService _authService;
+        private readonly IServiceProvider _serviceProvider; 
 
-        public LoginForm()
+        public LoginForm(IAuthService authService, IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _authService = authService;
+            _serviceProvider = serviceProvider;
         }
 
         private void buttonTogglePass_Click(object sender, EventArgs e)
@@ -23,7 +29,10 @@ namespace FE_CompanyTest
         private async void buttonRegister_Click(object sender, EventArgs e)
         {
             this.Hide();
-            RegisterForm registerForm = new RegisterForm();
+            //RegisterForm registerForm = new RegisterForm();
+            //registerForm.ShowDialog();
+
+            var registerForm = _serviceProvider.GetRequiredService<RegisterForm>();
             registerForm.ShowDialog();
         }
 
@@ -37,8 +46,7 @@ namespace FE_CompanyTest
                 Password = textBoxPass.Text
             };
 
-            AuthService authService = new AuthService();
-            var result = await authService.LoginAsync(dto_Auth);
+            var result = await _authService.LoginAsync(dto_Auth);
 
             labelLog.ForeColor = result.Success == true ? Color.Blue : Color.IndianRed;
             labelLog.Text = result.Message;
@@ -47,8 +55,9 @@ namespace FE_CompanyTest
 
             // Show Home dialog
             this.Hide();
-            Home homeDialog = new Home();
-            homeDialog.ShowDialog();
+            
+            var homeForm = _serviceProvider.GetRequiredService<Home>(); 
+            homeForm.ShowDialog();
         }
 
         #region Internal Methods
