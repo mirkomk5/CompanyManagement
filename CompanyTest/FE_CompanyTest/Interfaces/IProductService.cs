@@ -9,6 +9,6 @@ namespace FE_CompanyTest.Interfaces
 {
     public interface IProductService
     {
-        Task<List<DTO_Product>> GetProductsAsync(string token);
+        Task<List<DTO_Product>> GetProductsAsync(string token, int pageNumber, int rowPerPage);
     }
 }

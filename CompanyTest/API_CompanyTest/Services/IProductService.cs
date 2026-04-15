@@ -13,6 +13,7 @@ namespace API_CompanyTest.Services
         Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<DTO_Product>?> GetAllProductsAsync();
+        Task<List<DTO_Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage);
     }
 
     public class ProductService(IMapper mapper, IProductRepository productRepo) : IProductService
@@ -52,6 +53,18 @@ namespace API_CompanyTest.Services
         {
             var result = await productRepo.UpdateProductAsync(id, dtoProduct);
             return result;
+        }
+
+        public async Task<List<DTO_Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage)
+        {
+            if(pageNumber <= 0 || rowPerPage <= 0)
+            {
+                throw new ArgumentException("Page number and row per page must be greater than zero.");
+            }
+            
+            var products = await productRepo.GetAllProductsBySPAsync(pageNumber, rowPerPage);
+            var mappedProducts = mapper.Map<List<DTO_Product>>(products);
+            return mappedProducts;
         }
     }
 }

@@ -13,16 +13,16 @@ namespace FE_CompanyTest.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl = "https://localhost:7110/v1/";
-        private readonly string _apiOrdersTable = "Products/get-all";
+        private readonly string _apiOrdersTable = "Products/get-all-by-sp/";
 
         public ProductService()
         {
             _httpClient = new HttpClient();
         }
 
-        public async Task<List<DTO_Product>> GetProductsAsync(string token)
+        public async Task<List<DTO_Product>> GetProductsAsync(string token, int pageNumber, int rowPerPage)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + _apiOrdersTable);
+            var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + _apiOrdersTable + $"{pageNumber}/{rowPerPage}");
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);

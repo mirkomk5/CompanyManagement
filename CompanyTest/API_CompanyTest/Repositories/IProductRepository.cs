@@ -14,6 +14,7 @@ namespace API_CompanyTest.Repositories
         Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<Product>?> GetAllProductsAsync();
+        Task<IEnumerable<Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage);
     }
 
     public class ProductRepository(CompanyTestContext context) : IProductRepository
@@ -125,6 +126,22 @@ namespace API_CompanyTest.Repositories
             {
                 Console.WriteLine($"Error updating product: {ex.Message}");
                 return new DTO_ResponseMessage(false, $"Error during update: {ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage)
+        {
+            using (var connection = new SqlConnection(context.Database.GetConnectionString()))
+            {
+                var procedure = "sp_GetProductsPaged";
+                var values = new { PageNumber = pageNumber, RowsPerPage = rowPerPage };
+
+                var result = await connection.QueryAsync<Product>(
+                    procedure,
+                    values,
+                    commandType: System.Data.CommandType.StoredProcedure
+                );
+                return result;
             }
         }
     }
