@@ -34,6 +34,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddScoped<IClaimsRepository, ClaimsRepository>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Middleware custom declaration *********************

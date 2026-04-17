@@ -50,6 +50,7 @@
             modificaToolStripMenuItem = new ToolStripMenuItem();
             aggiunToolStripMenuItem = new ToolStripMenuItem();
             aggiungiProdottoToolStripMenuItem = new ToolStripMenuItem();
+            ClaimsDataGrid = new DataGridView();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UpDownResultSize).BeginInit();
@@ -59,7 +60,9 @@
             ((System.ComponentModel.ISupportInitialize)UpDownProductPageSize).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UpDownProductPage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridProducts).BeginInit();
+            tabPage3.SuspendLayout();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ClaimsDataGrid).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -242,6 +245,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(ClaimsDataGrid);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -298,6 +302,21 @@
             aggiungiProdottoToolStripMenuItem.Size = new Size(173, 22);
             aggiungiProdottoToolStripMenuItem.Text = "Aggiungi prodotto";
             // 
+            // ClaimsDataGrid
+            // 
+            ClaimsDataGrid.AllowUserToAddRows = false;
+            ClaimsDataGrid.AllowUserToDeleteRows = false;
+            ClaimsDataGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ClaimsDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ClaimsDataGrid.BackgroundColor = SystemColors.ControlLightLight;
+            ClaimsDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ClaimsDataGrid.Location = new Point(6, 33);
+            ClaimsDataGrid.Name = "ClaimsDataGrid";
+            ClaimsDataGrid.ReadOnly = true;
+            ClaimsDataGrid.Size = new Size(1004, 330);
+            ClaimsDataGrid.TabIndex = 2;
+            ClaimsDataGrid.CellContentClick += dataGridView1_CellContentClick_1;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -320,8 +339,10 @@
             ((System.ComponentModel.ISupportInitialize)UpDownProductPageSize).EndInit();
             ((System.ComponentModel.ISupportInitialize)UpDownProductPage).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridProducts).EndInit();
+            tabPage3.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ClaimsDataGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -349,5 +370,6 @@
         private Label label4;
         private NumericUpDown UpDownProductPageSize;
         private NumericUpDown UpDownProductPage;
+        private DataGridView ClaimsDataGrid;
     }
 }

@@ -21,7 +21,7 @@ namespace FE_CompanyTest
         private int OrdersCurrentPage { get { return (int)UpDownPage.Value; } }
         private int OrdersPageSize { get { return (int)UpDownResultSize.Value; } }
 
-        private int ProductsCurrentPage { get { return (int)UpDownProductPage.Value; } }    
+        private int ProductsCurrentPage { get { return (int)UpDownProductPage.Value; } }
         private int ProductsPageSize { get { return (int)UpDownProductPageSize.Value; } }
 
         public Home(IAuthService authService, IServiceProvider serviceProvider)
@@ -46,6 +46,16 @@ namespace FE_CompanyTest
         {
             RetrevieOrders();
             RetrevieProducts();
+            RetrevieClaims();
+        }
+
+        private async void RetrevieClaims()
+        {
+            var claimsService = new ClaimsService();
+            var claims = await claimsService.GetClaimsTable(_authService.AuthResponse.TokenId);
+            if (claims == null) return;
+
+            ClaimsDataGrid.DataSource = claims;
         }
 
         private async void RetrevieOrders()
@@ -104,6 +114,11 @@ namespace FE_CompanyTest
         private void UpDownProductPageSize_ValueChanged(object sender, EventArgs e)
         {
             RetrevieProducts();
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
