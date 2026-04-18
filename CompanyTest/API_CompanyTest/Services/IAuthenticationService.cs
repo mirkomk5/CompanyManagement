@@ -1,6 +1,7 @@
 ﻿using API_CompanyTest.Repositories;
 using BE_CompanyTest.Models;
 using DTO_CompanyTest;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_CompanyTest.Services
 {
@@ -10,20 +11,46 @@ namespace API_CompanyTest.Services
         Task<DTO_AuthResponse> LoginAsync(DTO_AuthRequest credentials);
     }
 
-    public class AuthenticationService(IAuthRepository authRepo, ITokenService tokenService) : IAuthenticationService
+    public class AuthenticationService(CompanyTestContext context, IAuthRepository authRepo, ITokenService tokenService) : IAuthenticationService
     {
 
         public async Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest credentials)
         {
-            var result = await authRepo.RegisterAsync(credentials);
-            var tokenId = tokenService.CreateToken(result.Id, result.AdminLevel.ToString());
+            // Controllo esistenza profilo con stessa email
+            var isProfileExisting = await context.Users.FirstOrDefaultAsync(u => u.Email == credentials.Email);
+            if (isProfileExisting != null)
+            {
+                return new DTO_AuthResponse
+                {
+                    UserId = Guid.Empty,
+                    TokenId = string.Empty,
+                    Message = "There is already profile registered with this email",
+                    Success = false
+                };
+            }
 
-            if (result == null) return null;
+            var result = await authRepo.RegisterAsync(credentials);
+            if (result == null)
+            {
+                return new DTO_AuthResponse
+                {
+                    UserId = Guid.Empty,
+                    TokenId = string.Empty,
+                    Message = "Registration failed. Check the data you entered.",
+                    Success = false
+                };
+            }
+
+            
+
+            var tokenId = tokenService.CreateToken(result.Id, result.AdminLevel.ToString());
 
             DTO_AuthResponse response = new DTO_AuthResponse
             {
                 UserId = result.Id,
-                TokenId = tokenId
+                TokenId = tokenId,
+                Message = "Registered successfully",
+                Success = true,
             };
 
             return response;
@@ -33,13 +60,21 @@ namespace API_CompanyTest.Services
         public async Task<DTO_AuthResponse> LoginAsync(DTO_AuthRequest credentials)
         {
             var result = await authRepo.LoginAsync(credentials);
-            if(result == null) return null;
+            if(result == null) return new DTO_AuthResponse
+            {
+                UserId = Guid.Empty,
+                TokenId = string.Empty,
+                Message = "Invalid email or password",
+                Success = false
+            };
 
             var tokenId = tokenService.CreateToken(result.Id, result.AdminLevel.ToString());
             DTO_AuthResponse response = new DTO_AuthResponse
             {
                 UserId = result.Id,
-                TokenId = tokenId
+                TokenId = tokenId,
+                Message = "Logged in successfully",
+                Success = true,
             };
             return response;
         }

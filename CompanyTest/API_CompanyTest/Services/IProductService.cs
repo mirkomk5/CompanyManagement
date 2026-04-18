@@ -7,30 +7,31 @@ namespace API_CompanyTest.Services
 {
     public interface IProductService
     {
-        Task<DTO_ResponseMessage> CreateProductAsync(DTO_Product product);
-        Task<DTO_ResponseMessage> SP_CreateProductAsync(DTO_Product product);
-        Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
-        Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
+        Task<DTO_Result> CreateProductAsync(DTO_Product product);
+        Task<DTO_Result> SP_CreateProductAsync(DTO_Product product);
+        Task<DTO_Result> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
+        Task<DTO_Result> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<DTO_Product>?> GetAllProductsAsync();
+        Task<List<DTO_Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage);
     }
 
     public class ProductService(IMapper mapper, IProductRepository productRepo) : IProductService
     {
-        public async Task<DTO_ResponseMessage> CreateProductAsync(DTO_Product product)
+        public async Task<DTO_Result> CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
             var result = await productRepo.CreateProductAsync(mappedProduct);
             return result;
         }
 
-        public async Task<DTO_ResponseMessage> SP_CreateProductAsync(DTO_Product product)
+        public async Task<DTO_Result> SP_CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
             return await productRepo.SP_CreateProductAsync(mappedProduct);
         } 
 
-        public async Task<DTO_ResponseMessage> DeleteProductAsync(Guid id)
+        public async Task<DTO_Result> DeleteProductAsync(Guid id)
         {
             return await productRepo.DeleteProductAsync(id);
         }
@@ -48,10 +49,22 @@ namespace API_CompanyTest.Services
             return product;
         }
 
-        public async Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
+        public async Task<DTO_Result> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
         {
             var result = await productRepo.UpdateProductAsync(id, dtoProduct);
             return result;
+        }
+
+        public async Task<List<DTO_Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage)
+        {
+            if(pageNumber <= 0 || rowPerPage <= 0)
+            {
+                throw new ArgumentException("Page number and row per page must be greater than zero.");
+            }
+            
+            var products = await productRepo.GetAllProductsBySPAsync(pageNumber, rowPerPage);
+            var mappedProducts = mapper.Map<List<DTO_Product>>(products);
+            return mappedProducts;
         }
     }
 }

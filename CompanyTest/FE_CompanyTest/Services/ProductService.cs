@@ -1,0 +1,30 @@
+﻿using DTO_CompanyTest;
+using FE_CompanyTest.Interfaces;
+using FE_CompanyTest.Misc;
+using System.Net.Http.Json;
+
+
+namespace FE_CompanyTest.Services
+{
+    public class ProductService : IProductService
+    {
+        private readonly HttpClient _httpClient;
+
+        public ProductService()
+        {
+            _httpClient = new HttpClient();
+        }
+
+        public async Task<List<DTO_Product>> GetProductsAsync(string token, int pageNumber, int rowPerPage)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, Constants.API_BASEURL + Constants.API_PRODUCTS_TABLE + $"{pageNumber}/{rowPerPage}");
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var results = await response.Content.ReadFromJsonAsync<List<DTO_Product>>();
+            return results;
+        }
+    }
+}

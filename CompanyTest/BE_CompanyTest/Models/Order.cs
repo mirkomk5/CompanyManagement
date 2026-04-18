@@ -13,6 +13,8 @@ public partial class Order
 
     public string? Notes { get; set; }
 
+    public DateTime? CreatedAt { get; set; }
+
     public virtual ICollection<Claim> Claims { get; set; } = new List<Claim>();
 
     public virtual User Customer { get; set; } = null!;

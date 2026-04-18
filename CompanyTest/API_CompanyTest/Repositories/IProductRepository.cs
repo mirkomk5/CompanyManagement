@@ -8,32 +8,33 @@ namespace API_CompanyTest.Repositories
 {
     public interface IProductRepository
     {
-        Task<DTO_ResponseMessage> CreateProductAsync(Product product);
-        Task<DTO_ResponseMessage> SP_CreateProductAsync(Product product);
-        Task<DTO_ResponseMessage> UpdateProductAsync(Guid id, DTO_Product product);
-        Task<DTO_ResponseMessage> DeleteProductAsync(Guid id);
+        Task<DTO_Result> CreateProductAsync(Product product);
+        Task<DTO_Result> SP_CreateProductAsync(Product product);
+        Task<DTO_Result> UpdateProductAsync(Guid id, DTO_Product product);
+        Task<DTO_Result> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<Product>?> GetAllProductsAsync();
+        Task<IEnumerable<Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage);
     }
 
     public class ProductRepository(CompanyTestContext context) : IProductRepository
     {
-        public async Task<DTO_ResponseMessage> CreateProductAsync(Product product)
+        public async Task<DTO_Result> CreateProductAsync(Product product)
         {
             try
             {
                 context.Products.Add(product);
                 await context.SaveChangesAsync();
-                return new DTO_ResponseMessage(true, "Product created succesfully");
+                return new DTO_Result(true, "Product created succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating product: {ex.Message}");
-                return new DTO_ResponseMessage(false, $"Error during creation: {ex.Message}");
+                return new DTO_Result(false, $"Error during creation: {ex.Message}");
             }
         }
 
-        public async Task<DTO_ResponseMessage> SP_CreateProductAsync(Product product)
+        public async Task<DTO_Result> SP_CreateProductAsync(Product product)
         {
             string connectionString = context.Database.GetConnectionString();
 
@@ -55,16 +56,16 @@ namespace API_CompanyTest.Repositories
                         commandType: System.Data.CommandType.StoredProcedure
                     );
                 }
-                return new DTO_ResponseMessage(true, "Product created succesfully");
+                return new DTO_Result(true, "Product created succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating product via stored procedure: {ex.Message}");
-                return new DTO_ResponseMessage(false, $"Error during creation: {ex.Message}");
+                return new DTO_Result(false, $"Error during creation: {ex.Message}");
             }
         }
 
-        public async Task<DTO_ResponseMessage> DeleteProductAsync(Guid id)
+        public async Task<DTO_Result> DeleteProductAsync(Guid id)
         {
             // Per una questione di legame di product con order, mi assicuro di eliminare prima il prodotto dagli ordini
             var orders = context.Orders.Where(o => o.ProductId == id);
@@ -74,11 +75,11 @@ namespace API_CompanyTest.Repositories
             // .. proseguo poi con l'eliminazione del prodotto
             var product = context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
-                return new DTO_ResponseMessage(false, "Error: No product id found");
+                return new DTO_Result(false, "Error: No product id found");
 
             context.Products.Remove(product);
             await context.SaveChangesAsync();
-            return new DTO_ResponseMessage(true, "Product removed succesfully");
+            return new DTO_Result(true, "Product removed succesfully");
         }
 
         public async Task<IEnumerable<Product>?> GetAllProductsAsync()
@@ -101,12 +102,12 @@ namespace API_CompanyTest.Repositories
             return product;
         }
 
-        public async Task<DTO_ResponseMessage> UpdateProductAsync(Guid guid, DTO_Product dtoProduct)
+        public async Task<DTO_Result> UpdateProductAsync(Guid guid, DTO_Product dtoProduct)
         {
             var target = await context.Products.FirstOrDefaultAsync(p => p.Id == guid);
 
             if (target == null)            
-                return new DTO_ResponseMessage(false, "Product not found");
+                return new DTO_Result(false, "Product not found");
             
 
             try
@@ -119,12 +120,28 @@ namespace API_CompanyTest.Repositories
                 //context.Entry(target).CurrentValues.SetValues(product);
 
                 await context.SaveChangesAsync();
-                return new DTO_ResponseMessage(true, "Product update succesfully");
+                return new DTO_Result(true, "Product update succesfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating product: {ex.Message}");
-                return new DTO_ResponseMessage(false, $"Error during update: {ex.Message}");
+                return new DTO_Result(false, $"Error during update: {ex.Message}");
+            }
+        }
+
+        public async Task<IEnumerable<Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage)
+        {
+            using (var connection = new SqlConnection(context.Database.GetConnectionString()))
+            {
+                var procedure = "sp_GetProductsPaged";
+                var values = new { PageNumber = pageNumber, RowsPerPage = rowPerPage };
+
+                var result = await connection.QueryAsync<Product>(
+                    procedure,
+                    values,
+                    commandType: System.Data.CommandType.StoredProcedure
+                );
+                return result;
             }
         }
     }

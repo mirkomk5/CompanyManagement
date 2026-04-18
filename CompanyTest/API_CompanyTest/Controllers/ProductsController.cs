@@ -29,6 +29,21 @@ namespace API_CompanyTest.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("get-all-by-sp/{from}/{resultSize}")]
+        public async Task<IActionResult> GetAllProductsBySP(int from, int resultSize)
+        {
+            var adminCheck = IsValidAdminLevel(1);
+            if (!adminCheck.state)
+                return StatusCode(401, adminCheck.message);
+
+            if (from <= 0 || resultSize <= 0)
+                return BadRequest("Invalid pagination parameters");
+
+            var result = await service.GetAllProductsBySPAsync(from, resultSize);
+            return Ok(result);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateProduct([FromBody]DTO_Product product)

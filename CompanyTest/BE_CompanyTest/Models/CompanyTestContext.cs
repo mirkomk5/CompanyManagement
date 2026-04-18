@@ -57,6 +57,7 @@ public partial class CompanyTestContext : DbContext
         modelBuilder.Entity<Order>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Notes).HasMaxLength(200);
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
