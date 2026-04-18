@@ -1,4 +1,5 @@
 ﻿using DTO_CompanyTest;
+using FE_CompanyTest.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,6 @@ namespace FE_CompanyTest.Services
     public class ClaimsService : IClaimsService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:7110/v1/";
-        private readonly string _apiOrdersTable = "Claims/claims-table/";
 
 
         public ClaimsService()
@@ -27,7 +26,7 @@ namespace FE_CompanyTest.Services
 
         public async Task<List<DTO_ClaimsTable>> GetClaimsTable(string tokenId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, _baseUrl + _apiOrdersTable);
+            var request = new HttpRequestMessage(HttpMethod.Post, Constants.API_BASEURL + Constants.API_CLAIMS_TABLE);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", tokenId);
 
             var response = _httpClient.SendAsync(request).Result;

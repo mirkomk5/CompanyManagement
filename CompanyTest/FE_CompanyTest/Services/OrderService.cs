@@ -1,5 +1,6 @@
 ﻿using DTO_CompanyTest;
 using FE_CompanyTest.Interfaces;
+using FE_CompanyTest.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,6 @@ namespace FE_CompanyTest.Services
     public class OrderService : IOrdersService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:7110/v1/";
-        private readonly string _apiOrdersTable = "Orders/ordersTable/"; 
 
         public OrderService()
         {
@@ -22,7 +21,7 @@ namespace FE_CompanyTest.Services
 
         public async Task<List<DTO_OrderTable>> GetOrdersAsync(string tokenId, int from, int amount)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + _apiOrdersTable + $"{from}/{amount}");
+            var request = new HttpRequestMessage(HttpMethod.Get, Constants.API_BASEURL + Constants.API_ORDERS_TABLE + $"{from}/{amount}");
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", tokenId);
 
             var response = await _httpClient.SendAsync(request);

@@ -1,19 +1,14 @@
 ﻿using DTO_CompanyTest;
 using FE_CompanyTest.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using FE_CompanyTest.Misc;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FE_CompanyTest.Services
 {
     public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
-        private readonly string _baseUrl = "https://localhost:7110/v1/";
-        private readonly string _apiOrdersTable = "Products/get-all-by-sp/";
 
         public ProductService()
         {
@@ -22,7 +17,7 @@ namespace FE_CompanyTest.Services
 
         public async Task<List<DTO_Product>> GetProductsAsync(string token, int pageNumber, int rowPerPage)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + _apiOrdersTable + $"{pageNumber}/{rowPerPage}");
+            var request = new HttpRequestMessage(HttpMethod.Get, Constants.API_BASEURL + Constants.API_PRODUCTS_TABLE + $"{pageNumber}/{rowPerPage}");
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);
