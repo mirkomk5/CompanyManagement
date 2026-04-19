@@ -28,6 +28,10 @@ namespace FE_CompanyTest
                     service.AddTransient<LoginForm>();
                     service.AddTransient<RegisterForm>();
                     service.AddTransient<Home>();
+
+                    service.AddTransient<IOrdersService, OrderService>();
+                    service.AddTransient<IProductService, ProductService>();
+                    service.AddTransient<IClaimsService, ClaimsService>();
                 })
                 .Build();
 

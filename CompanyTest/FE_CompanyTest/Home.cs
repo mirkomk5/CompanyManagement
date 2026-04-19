@@ -17,6 +17,9 @@ namespace FE_CompanyTest
     {
         private readonly IAuthService _authService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IOrdersService _orderService;
+        private readonly IProductService _productService;
+        private readonly IClaimsService _claimsService;
 
         private int OrdersCurrentPage { get { return (int)UpDownPage.Value; } }
         private int OrdersPageSize { get { return (int)UpDownResultSize.Value; } }
@@ -24,11 +27,15 @@ namespace FE_CompanyTest
         private int ProductsCurrentPage { get { return (int)UpDownProductPage.Value; } }
         private int ProductsPageSize { get { return (int)UpDownProductPageSize.Value; } }
 
-        public Home(IAuthService authService, IServiceProvider serviceProvider)
+        public Home(IAuthService authService, IServiceProvider serviceProvider, IOrdersService ordersService,IProductService productService, IClaimsService claimsService)
         {
             InitializeComponent();
             _authService = authService;
             _serviceProvider = serviceProvider;
+
+            _productService = productService;
+            _claimsService = claimsService;
+            _orderService = ordersService;
 
             orderDataGrid.AutoGenerateColumns = true;
             dataGridProducts.AutoGenerateColumns = true;
@@ -53,8 +60,7 @@ namespace FE_CompanyTest
 
         private async void RetrevieClaims()
         {
-            var claimsService = new ClaimsService();
-            var claims = await claimsService.GetClaimsTable(_authService.AuthResponse.TokenId);
+            var claims = await _claimsService.GetClaimsTable(_authService.AuthResponse.TokenId);
             if (claims == null) return;
 
             ClaimsDataGrid.DataSource = claims;
@@ -62,8 +68,7 @@ namespace FE_CompanyTest
 
         private async void RetrevieOrders()
         {
-            var orderService = new OrderService();
-            var orders = await orderService.GetOrdersAsync(_authService.AuthResponse.TokenId, OrdersCurrentPage, OrdersPageSize);
+            var orders = await _orderService.GetOrdersAsync(_authService.AuthResponse.TokenId, OrdersCurrentPage, OrdersPageSize);
             if (orders != null)
                 orderDataGrid.DataSource = orders;
             else
@@ -72,8 +77,7 @@ namespace FE_CompanyTest
 
         private async void RetrevieProducts()
         {
-            var productService = new ProductService();
-            var products = await productService.GetProductsAsync(_authService.AuthResponse.TokenId, ProductsCurrentPage, ProductsPageSize);
+            var products = await _productService.GetProductsAsync(_authService.AuthResponse.TokenId, ProductsCurrentPage, ProductsPageSize);
             if (products != null)
                 dataGridProducts.DataSource = products;
             else
