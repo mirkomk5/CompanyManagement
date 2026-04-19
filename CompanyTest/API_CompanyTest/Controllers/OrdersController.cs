@@ -64,7 +64,7 @@ namespace API_CompanyTest.Controllers
             int page = from < 1 ? 1 : from;
             int size = amount < 1 ? 10 : amount;
 
-            var result = await service.GetOrdersAsync(from, amount);
+            var result = await service.GetOrdersAsync(page, size);
             return StatusCode(200, result);
         }
 

@@ -31,6 +31,8 @@ namespace FE_CompanyTest
             _serviceProvider = serviceProvider;
 
             orderDataGrid.AutoGenerateColumns = true;
+            dataGridProducts.AutoGenerateColumns = true;
+            ClaimsDataGrid.AutoGenerateColumns = true;
 
             RetrevieData();
         }

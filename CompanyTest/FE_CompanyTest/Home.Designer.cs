@@ -43,6 +43,7 @@
             UpDownProductPage = new NumericUpDown();
             dataGridProducts = new DataGridView();
             tabPage3 = new TabPage();
+            ClaimsDataGrid = new DataGridView();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             aggiornaRisultatiToolStripMenuItem = new ToolStripMenuItem();
@@ -50,7 +51,6 @@
             modificaToolStripMenuItem = new ToolStripMenuItem();
             aggiunToolStripMenuItem = new ToolStripMenuItem();
             aggiungiProdottoToolStripMenuItem = new ToolStripMenuItem();
-            ClaimsDataGrid = new DataGridView();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UpDownResultSize).BeginInit();
@@ -61,8 +61,8 @@
             ((System.ComponentModel.ISupportInitialize)UpDownProductPage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridProducts).BeginInit();
             tabPage3.SuspendLayout();
-            menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ClaimsDataGrid).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -71,10 +71,11 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(12, 27);
+            tabControl1.Location = new Point(14, 36);
+            tabControl1.Margin = new Padding(3, 4, 3, 4);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1018, 394);
+            tabControl1.Size = new Size(1163, 525);
             tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -85,10 +86,11 @@
             tabPage1.Controls.Add(UpDownResultSize);
             tabPage1.Controls.Add(UpDownPage);
             tabPage1.Controls.Add(orderDataGrid);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Margin = new Padding(3, 4, 3, 4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1010, 366);
+            tabPage1.Padding = new Padding(3, 4, 3, 4);
+            tabPage1.Size = new Size(1155, 492);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordini";
             tabPage1.UseVisualStyleBackColor = true;
@@ -96,9 +98,10 @@
             // ButtonSaveOrderChanges
             // 
             ButtonSaveOrderChanges.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            ButtonSaveOrderChanges.Location = new Point(664, 6);
+            ButtonSaveOrderChanges.Location = new Point(759, 8);
+            ButtonSaveOrderChanges.Margin = new Padding(3, 4, 3, 4);
             ButtonSaveOrderChanges.Name = "ButtonSaveOrderChanges";
-            ButtonSaveOrderChanges.Size = new Size(75, 23);
+            ButtonSaveOrderChanges.Size = new Size(86, 31);
             ButtonSaveOrderChanges.TabIndex = 5;
             ButtonSaveOrderChanges.Text = "Salva";
             ButtonSaveOrderChanges.UseVisualStyleBackColor = true;
@@ -108,9 +111,9 @@
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Location = new Point(878, 8);
+            label2.Location = new Point(1003, 11);
             label2.Name = "label2";
-            label2.Size = new Size(61, 15);
+            label2.Size = new Size(76, 20);
             label2.TabIndex = 4;
             label2.Text = "N. risultati";
             // 
@@ -118,9 +121,9 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Location = new Point(758, 8);
+            label1.Location = new Point(866, 11);
             label1.Name = "label1";
-            label1.Size = new Size(43, 15);
+            label1.Size = new Size(53, 20);
             label1.TabIndex = 3;
             label1.Text = "Pagina";
             // 
@@ -129,11 +132,12 @@
             UpDownResultSize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             UpDownResultSize.BorderStyle = BorderStyle.FixedSingle;
             UpDownResultSize.ImeMode = ImeMode.NoControl;
-            UpDownResultSize.Location = new Point(945, 6);
+            UpDownResultSize.Location = new Point(1080, 8);
+            UpDownResultSize.Margin = new Padding(3, 4, 3, 4);
             UpDownResultSize.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             UpDownResultSize.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             UpDownResultSize.Name = "UpDownResultSize";
-            UpDownResultSize.Size = new Size(59, 23);
+            UpDownResultSize.Size = new Size(67, 27);
             UpDownResultSize.TabIndex = 2;
             UpDownResultSize.Value = new decimal(new int[] { 10, 0, 0, 0 });
             UpDownResultSize.ValueChanged += UpDownResultSize_ValueChanged;
@@ -143,11 +147,12 @@
             UpDownPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             UpDownPage.BorderStyle = BorderStyle.FixedSingle;
             UpDownPage.ImeMode = ImeMode.NoControl;
-            UpDownPage.Location = new Point(807, 6);
+            UpDownPage.Location = new Point(922, 8);
+            UpDownPage.Margin = new Padding(3, 4, 3, 4);
             UpDownPage.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             UpDownPage.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             UpDownPage.Name = "UpDownPage";
-            UpDownPage.Size = new Size(59, 23);
+            UpDownPage.Size = new Size(67, 27);
             UpDownPage.TabIndex = 1;
             UpDownPage.Value = new decimal(new int[] { 1, 0, 0, 0 });
             UpDownPage.ValueChanged += UpDownPage_ValueChanged;
@@ -160,9 +165,11 @@
             orderDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             orderDataGrid.BackgroundColor = SystemColors.ControlLightLight;
             orderDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            orderDataGrid.Location = new Point(3, 32);
+            orderDataGrid.Location = new Point(3, 43);
+            orderDataGrid.Margin = new Padding(3, 4, 3, 4);
             orderDataGrid.Name = "orderDataGrid";
-            orderDataGrid.Size = new Size(1004, 331);
+            orderDataGrid.RowHeadersWidth = 51;
+            orderDataGrid.Size = new Size(1147, 441);
             orderDataGrid.TabIndex = 0;
             orderDataGrid.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -173,10 +180,11 @@
             tabPage2.Controls.Add(UpDownProductPageSize);
             tabPage2.Controls.Add(UpDownProductPage);
             tabPage2.Controls.Add(dataGridProducts);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.Location = new Point(4, 29);
+            tabPage2.Margin = new Padding(3, 4, 3, 4);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1010, 366);
+            tabPage2.Padding = new Padding(3, 4, 3, 4);
+            tabPage2.Size = new Size(1155, 492);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Prodotti";
             tabPage2.UseVisualStyleBackColor = true;
@@ -185,9 +193,9 @@
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(878, 6);
+            label3.Location = new Point(1003, 8);
             label3.Name = "label3";
-            label3.Size = new Size(61, 15);
+            label3.Size = new Size(76, 20);
             label3.TabIndex = 8;
             label3.Text = "N. risultati";
             // 
@@ -195,9 +203,9 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(758, 6);
+            label4.Location = new Point(866, 8);
             label4.Name = "label4";
-            label4.Size = new Size(43, 15);
+            label4.Size = new Size(53, 20);
             label4.TabIndex = 7;
             label4.Text = "Pagina";
             // 
@@ -206,11 +214,12 @@
             UpDownProductPageSize.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             UpDownProductPageSize.BorderStyle = BorderStyle.FixedSingle;
             UpDownProductPageSize.ImeMode = ImeMode.NoControl;
-            UpDownProductPageSize.Location = new Point(945, 4);
+            UpDownProductPageSize.Location = new Point(1080, 5);
+            UpDownProductPageSize.Margin = new Padding(3, 4, 3, 4);
             UpDownProductPageSize.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             UpDownProductPageSize.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             UpDownProductPageSize.Name = "UpDownProductPageSize";
-            UpDownProductPageSize.Size = new Size(59, 23);
+            UpDownProductPageSize.Size = new Size(67, 27);
             UpDownProductPageSize.TabIndex = 6;
             UpDownProductPageSize.Value = new decimal(new int[] { 10, 0, 0, 0 });
             UpDownProductPageSize.ValueChanged += UpDownProductPageSize_ValueChanged;
@@ -220,11 +229,12 @@
             UpDownProductPage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             UpDownProductPage.BorderStyle = BorderStyle.FixedSingle;
             UpDownProductPage.ImeMode = ImeMode.NoControl;
-            UpDownProductPage.Location = new Point(807, 4);
+            UpDownProductPage.Location = new Point(922, 5);
+            UpDownProductPage.Margin = new Padding(3, 4, 3, 4);
             UpDownProductPage.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             UpDownProductPage.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             UpDownProductPage.Name = "UpDownProductPage";
-            UpDownProductPage.Size = new Size(59, 23);
+            UpDownProductPage.Size = new Size(67, 27);
             UpDownProductPage.TabIndex = 5;
             UpDownProductPage.Value = new decimal(new int[] { 1, 0, 0, 0 });
             UpDownProductPage.ValueChanged += UpDownProductPage_ValueChanged;
@@ -237,70 +247,25 @@
             dataGridProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridProducts.BackgroundColor = SystemColors.ControlLightLight;
             dataGridProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridProducts.Location = new Point(3, 33);
+            dataGridProducts.Location = new Point(3, 44);
+            dataGridProducts.Margin = new Padding(3, 4, 3, 4);
             dataGridProducts.Name = "dataGridProducts";
             dataGridProducts.ReadOnly = true;
-            dataGridProducts.Size = new Size(1004, 330);
+            dataGridProducts.RowHeadersWidth = 51;
+            dataGridProducts.Size = new Size(1147, 440);
             dataGridProducts.TabIndex = 1;
             // 
             // tabPage3
             // 
             tabPage3.Controls.Add(ClaimsDataGrid);
-            tabPage3.Location = new Point(4, 24);
+            tabPage3.Location = new Point(4, 29);
+            tabPage3.Margin = new Padding(3, 4, 3, 4);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(1010, 366);
+            tabPage3.Padding = new Padding(3, 4, 3, 4);
+            tabPage3.Size = new Size(1155, 492);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Reclami";
             tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, modificaToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1032, 24);
-            menuStrip1.TabIndex = 2;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aggiornaRisultatiToolStripMenuItem, esciToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
-            fileToolStripMenuItem.Text = "File";
-            // 
-            // aggiornaRisultatiToolStripMenuItem
-            // 
-            aggiornaRisultatiToolStripMenuItem.Name = "aggiornaRisultatiToolStripMenuItem";
-            aggiornaRisultatiToolStripMenuItem.Size = new Size(165, 22);
-            aggiornaRisultatiToolStripMenuItem.Text = "Aggiorna risultati";
-            // 
-            // esciToolStripMenuItem
-            // 
-            esciToolStripMenuItem.Name = "esciToolStripMenuItem";
-            esciToolStripMenuItem.Size = new Size(165, 22);
-            esciToolStripMenuItem.Text = "Esci";
-            // 
-            // modificaToolStripMenuItem
-            // 
-            modificaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aggiunToolStripMenuItem, aggiungiProdottoToolStripMenuItem });
-            modificaToolStripMenuItem.Name = "modificaToolStripMenuItem";
-            modificaToolStripMenuItem.Size = new Size(66, 20);
-            modificaToolStripMenuItem.Text = "Modifica";
-            // 
-            // aggiunToolStripMenuItem
-            // 
-            aggiunToolStripMenuItem.Name = "aggiunToolStripMenuItem";
-            aggiunToolStripMenuItem.Size = new Size(173, 22);
-            aggiunToolStripMenuItem.Text = "Aggiungi ordine";
-            aggiunToolStripMenuItem.Click += aggiunToolStripMenuItem_Click;
-            // 
-            // aggiungiProdottoToolStripMenuItem
-            // 
-            aggiungiProdottoToolStripMenuItem.Name = "aggiungiProdottoToolStripMenuItem";
-            aggiungiProdottoToolStripMenuItem.Size = new Size(173, 22);
-            aggiungiProdottoToolStripMenuItem.Text = "Aggiungi prodotto";
             // 
             // ClaimsDataGrid
             // 
@@ -310,21 +275,74 @@
             ClaimsDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ClaimsDataGrid.BackgroundColor = SystemColors.ControlLightLight;
             ClaimsDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ClaimsDataGrid.Location = new Point(6, 33);
+            ClaimsDataGrid.Location = new Point(7, 44);
+            ClaimsDataGrid.Margin = new Padding(3, 4, 3, 4);
             ClaimsDataGrid.Name = "ClaimsDataGrid";
             ClaimsDataGrid.ReadOnly = true;
-            ClaimsDataGrid.Size = new Size(1004, 330);
+            ClaimsDataGrid.RowHeadersWidth = 51;
+            ClaimsDataGrid.Size = new Size(1142, 440);
             ClaimsDataGrid.TabIndex = 2;
             ClaimsDataGrid.CellContentClick += dataGridView1_CellContentClick_1;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, modificaToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(1179, 30);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aggiornaRisultatiToolStripMenuItem, esciToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(46, 24);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // aggiornaRisultatiToolStripMenuItem
+            // 
+            aggiornaRisultatiToolStripMenuItem.Name = "aggiornaRisultatiToolStripMenuItem";
+            aggiornaRisultatiToolStripMenuItem.Size = new Size(207, 26);
+            aggiornaRisultatiToolStripMenuItem.Text = "Aggiorna risultati";
+            // 
+            // esciToolStripMenuItem
+            // 
+            esciToolStripMenuItem.Name = "esciToolStripMenuItem";
+            esciToolStripMenuItem.Size = new Size(207, 26);
+            esciToolStripMenuItem.Text = "Esci";
+            // 
+            // modificaToolStripMenuItem
+            // 
+            modificaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aggiunToolStripMenuItem, aggiungiProdottoToolStripMenuItem });
+            modificaToolStripMenuItem.Name = "modificaToolStripMenuItem";
+            modificaToolStripMenuItem.Size = new Size(82, 24);
+            modificaToolStripMenuItem.Text = "Modifica";
+            // 
+            // aggiunToolStripMenuItem
+            // 
+            aggiunToolStripMenuItem.Name = "aggiunToolStripMenuItem";
+            aggiunToolStripMenuItem.Size = new Size(217, 26);
+            aggiunToolStripMenuItem.Text = "Aggiungi ordine";
+            aggiunToolStripMenuItem.Click += aggiunToolStripMenuItem_Click;
+            // 
+            // aggiungiProdottoToolStripMenuItem
+            // 
+            aggiungiProdottoToolStripMenuItem.Name = "aggiungiProdottoToolStripMenuItem";
+            aggiungiProdottoToolStripMenuItem.Size = new Size(217, 26);
+            aggiungiProdottoToolStripMenuItem.Text = "Aggiungi prodotto";
+            // 
             // Home
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1032, 458);
+            ClientSize = new Size(1179, 611);
             Controls.Add(tabControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Home";
             Text = "Customer Management";
             Load += Home_Load;
@@ -340,9 +358,9 @@
             ((System.ComponentModel.ISupportInitialize)UpDownProductPage).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridProducts).EndInit();
             tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ClaimsDataGrid).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)ClaimsDataGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

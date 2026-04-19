@@ -7,10 +7,10 @@ namespace API_CompanyTest.Services
 {
     public interface IProductService
     {
-        Task<DTO_Result> CreateProductAsync(DTO_Product product);
-        Task<DTO_Result> SP_CreateProductAsync(DTO_Product product);
-        Task<DTO_Result> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
-        Task<DTO_Result> DeleteProductAsync(Guid id);
+        Task<DTO_Result<Product>> CreateProductAsync(DTO_Product product);
+        Task<DTO_Result<Product>> SP_CreateProductAsync(DTO_Product product);
+        Task<DTO_Result<Product>> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
+        Task<DTO_Result<Product>> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<DTO_Product>?> GetAllProductsAsync();
         Task<List<DTO_Product>> GetAllProductsBySPAsync(int pageNumber, int rowPerPage);
@@ -18,20 +18,20 @@ namespace API_CompanyTest.Services
 
     public class ProductService(IMapper mapper, IProductRepository productRepo) : IProductService
     {
-        public async Task<DTO_Result> CreateProductAsync(DTO_Product product)
+        public async Task<DTO_Result<Product>> CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
             var result = await productRepo.CreateProductAsync(mappedProduct);
             return result;
         }
 
-        public async Task<DTO_Result> SP_CreateProductAsync(DTO_Product product)
+        public async Task<DTO_Result<Product>> SP_CreateProductAsync(DTO_Product product)
         {
             var mappedProduct = mapper.Map<Product>(product);
             return await productRepo.SP_CreateProductAsync(mappedProduct);
         } 
 
-        public async Task<DTO_Result> DeleteProductAsync(Guid id)
+        public async Task<DTO_Result<Product>> DeleteProductAsync(Guid id)
         {
             return await productRepo.DeleteProductAsync(id);
         }
@@ -49,7 +49,7 @@ namespace API_CompanyTest.Services
             return product;
         }
 
-        public async Task<DTO_Result> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
+        public async Task<DTO_Result<Product>> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
         {
             var result = await productRepo.UpdateProductAsync(id, dtoProduct);
             return result;
