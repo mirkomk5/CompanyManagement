@@ -1,6 +1,7 @@
 ﻿using DTO_CompanyTest;
 using FE_CompanyTest.Interfaces;
 using FE_CompanyTest.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +28,7 @@ namespace FE_CompanyTest
         private int ProductsCurrentPage { get { return (int)UpDownProductPage.Value; } }
         private int ProductsPageSize { get { return (int)UpDownProductPageSize.Value; } }
 
-        public Home(IAuthService authService, IServiceProvider serviceProvider, IOrdersService ordersService,IProductService productService, IClaimsService claimsService)
+        public Home(IAuthService authService, IServiceProvider serviceProvider, IOrdersService ordersService, IProductService productService, IClaimsService claimsService)
         {
             InitializeComponent();
             _authService = authService;
@@ -125,6 +126,11 @@ namespace FE_CompanyTest
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void aggiungiProdottoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _serviceProvider.GetRequiredService<ProductForm>().ShowDialog();
         }
     }
 }

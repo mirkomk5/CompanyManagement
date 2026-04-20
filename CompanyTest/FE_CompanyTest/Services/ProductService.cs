@@ -15,6 +15,20 @@ namespace FE_CompanyTest.Services
             _httpClient = new HttpClient();
         }
 
+        public async Task<(bool status, string message)> CreateProductAsync(DTO_Product product, string tokenId)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, Constants.API_BASEURL + Constants.API_CREATE_PRODUCT);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", tokenId);
+            request.Content = JsonContent.Create(product);
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+                return (false, $"{response.StatusCode}");
+
+            return (true, "Product created successfully");
+        }
+
         public async Task<List<DTO_Product>> GetProductsAsync(string token, int pageNumber, int rowPerPage)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, Constants.API_BASEURL + Constants.API_PRODUCTS_TABLE + $"{pageNumber}/{rowPerPage}");

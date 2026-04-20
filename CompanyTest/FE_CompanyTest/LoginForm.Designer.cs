@@ -133,6 +133,7 @@ namespace FE_CompanyTest
             Margin = new Padding(3, 2, 3, 2);
             Name = "LoginForm";
             Text = "Login";
+            Load += LoginForm_Load;
             ((System.ComponentModel.ISupportInitialize)mainIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -28,6 +28,7 @@ namespace FE_CompanyTest
                     service.AddTransient<LoginForm>();
                     service.AddTransient<RegisterForm>();
                     service.AddTransient<Home>();
+                    service.AddTransient<ProductForm>();
 
                     service.AddTransient<IOrdersService, OrderService>();
                     service.AddTransient<IProductService, ProductService>();
