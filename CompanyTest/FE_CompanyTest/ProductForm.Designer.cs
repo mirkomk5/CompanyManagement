@@ -36,6 +36,7 @@
             label2 = new Label();
             label3 = new Label();
             buttonSaveProduct = new Button();
+            checkBoxEditMode = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)numericProductPrice).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericProductDiscount).BeginInit();
             SuspendLayout();
@@ -110,11 +111,22 @@
             buttonSaveProduct.UseVisualStyleBackColor = true;
             buttonSaveProduct.Click += buttonSaveProduct_Click;
             // 
+            // checkBoxEditMode
+            // 
+            checkBoxEditMode.AutoSize = true;
+            checkBoxEditMode.Location = new Point(202, 265);
+            checkBoxEditMode.Name = "checkBoxEditMode";
+            checkBoxEditMode.Size = new Size(82, 19);
+            checkBoxEditMode.TabIndex = 8;
+            checkBoxEditMode.Text = "checkBox1";
+            checkBoxEditMode.UseVisualStyleBackColor = true;
+            // 
             // ProductForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(345, 290);
+            Controls.Add(checkBoxEditMode);
             Controls.Add(buttonSaveProduct);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -145,5 +157,6 @@
         private Label label2;
         private Label label3;
         private Button buttonSaveProduct;
+        private CheckBox checkBoxEditMode;
     }
 }

@@ -8,6 +8,7 @@ namespace DTO_CompanyTest
 {
     public class DTO_Product
     {
+        public Guid? Id { get; set; }
         public string ProductName { get; set; } = null!;
         public string? Description { get; set; }
         public decimal Price { get; set; }

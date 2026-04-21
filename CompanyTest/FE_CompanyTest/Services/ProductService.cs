@@ -1,4 +1,5 @@
-﻿using DTO_CompanyTest;
+﻿using BE_CompanyTest.Models;
+using DTO_CompanyTest;
 using FE_CompanyTest.Interfaces;
 using FE_CompanyTest.Misc;
 using System.Net.Http.Json;
@@ -39,6 +40,24 @@ namespace FE_CompanyTest.Services
 
             var results = await response.Content.ReadFromJsonAsync<List<DTO_Product>>();
             return results;
+        }
+
+        public async Task<DTO_Result<Product?>> UpdateProductAsync(DTO_Product product, string tokenId)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Patch, Constants.API_BASEURL + Constants.API_UPDATE_PRODUCT);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", tokenId);
+            request.Content = JsonContent.Create(product);
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new DTO_Result<Product?>(false, $"{response.StatusCode} {errorMessage}");
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<DTO_Result<Product?>>();
+            return result;
         }
     }
 }

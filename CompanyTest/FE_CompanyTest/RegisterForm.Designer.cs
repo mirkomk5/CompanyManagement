@@ -132,6 +132,7 @@
             Controls.Add(textBoxEmail);
             Controls.Add(mainIcon);
             Name = "RegisterForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RegisterForm";
             ((System.ComponentModel.ISupportInitialize)mainIcon).EndInit();
             ResumeLayout(false);

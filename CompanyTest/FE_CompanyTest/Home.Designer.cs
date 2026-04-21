@@ -37,6 +37,7 @@
             UpDownPage = new NumericUpDown();
             orderDataGrid = new DataGridView();
             tabPage2 = new TabPage();
+            buttonSaveProduct = new Button();
             label3 = new Label();
             label4 = new Label();
             UpDownProductPageSize = new NumericUpDown();
@@ -87,7 +88,7 @@
             tabPage1.Controls.Add(orderDataGrid);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(1010, 366);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Ordini";
@@ -169,6 +170,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonSaveProduct);
             tabPage2.Controls.Add(label3);
             tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(UpDownProductPageSize);
@@ -176,11 +178,23 @@
             tabPage2.Controls.Add(dataGridProducts);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 3, 3, 3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(1010, 366);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Prodotti";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveProduct
+            // 
+            buttonSaveProduct.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonSaveProduct.Enabled = false;
+            buttonSaveProduct.Location = new Point(664, 6);
+            buttonSaveProduct.Name = "buttonSaveProduct";
+            buttonSaveProduct.Size = new Size(75, 23);
+            buttonSaveProduct.TabIndex = 9;
+            buttonSaveProduct.Text = "Salva";
+            buttonSaveProduct.UseVisualStyleBackColor = true;
+            buttonSaveProduct.Click += buttonSaveProduct_Click;
             // 
             // label3
             // 
@@ -240,17 +254,17 @@
             dataGridProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridProducts.Location = new Point(3, 33);
             dataGridProducts.Name = "dataGridProducts";
-            dataGridProducts.ReadOnly = true;
             dataGridProducts.RowHeadersWidth = 51;
             dataGridProducts.Size = new Size(1004, 330);
             dataGridProducts.TabIndex = 1;
+            dataGridProducts.CellValueChanged += dataGridProducts_CellValueChanged;
             // 
             // tabPage3
             // 
             tabPage3.Controls.Add(ClaimsDataGrid);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3, 3, 3, 3);
+            tabPage3.Padding = new Padding(3);
             tabPage3.Size = new Size(1010, 366);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Reclami";
@@ -311,14 +325,14 @@
             // aggiunToolStripMenuItem
             // 
             aggiunToolStripMenuItem.Name = "aggiunToolStripMenuItem";
-            aggiunToolStripMenuItem.Size = new Size(180, 22);
+            aggiunToolStripMenuItem.Size = new Size(173, 22);
             aggiunToolStripMenuItem.Text = "Aggiungi ordine";
             aggiunToolStripMenuItem.Click += aggiunToolStripMenuItem_Click;
             // 
             // aggiungiProdottoToolStripMenuItem
             // 
             aggiungiProdottoToolStripMenuItem.Name = "aggiungiProdottoToolStripMenuItem";
-            aggiungiProdottoToolStripMenuItem.Size = new Size(180, 22);
+            aggiungiProdottoToolStripMenuItem.Size = new Size(173, 22);
             aggiungiProdottoToolStripMenuItem.Text = "Aggiungi prodotto";
             aggiungiProdottoToolStripMenuItem.Click += aggiungiProdottoToolStripMenuItem_Click;
             // 
@@ -331,6 +345,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Home";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Customer Management";
             Load += Home_Load;
             tabControl1.ResumeLayout(false);
@@ -376,5 +391,6 @@
         private NumericUpDown UpDownProductPageSize;
         private NumericUpDown UpDownProductPage;
         private DataGridView ClaimsDataGrid;
+        private Button buttonSaveProduct;
     }
 }

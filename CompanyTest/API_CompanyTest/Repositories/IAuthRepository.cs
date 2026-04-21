@@ -35,9 +35,9 @@ namespace API_CompanyTest.Repositories
                 Value = hashedPass
             };
             userProfile.Credentials.Add(newCredential);
-
             context.Users.Add(userProfile);
-            var savingProcess = await context.SaveChangesAsync();
+
+            await context.SaveChangesAsync();
 
             return userProfile;
         }

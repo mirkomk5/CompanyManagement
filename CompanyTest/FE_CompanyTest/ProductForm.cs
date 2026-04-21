@@ -17,16 +17,24 @@ namespace FE_CompanyTest
         private readonly IProductService _productService;
         private readonly IAuthService _authService;
 
+        private DTO_Product? _currentProduct;
+
         public ProductForm(IAuthService authService, IProductService productService)
         {
             InitializeComponent();
             _authService = authService;
             _productService = productService;
+            _currentProduct = null;
+        }
+
+        public void SetEditProduct(DTO_Product currentProduct)
+        {
+            _currentProduct = currentProduct;
         }
 
         private void ProductForm_Load(object sender, EventArgs e)
         {
-
+            buttonSaveProduct.Text = _currentProduct == null ? "Aggiungi" : "Aggiorna";
         }
 
         private async void buttonSaveProduct_Click(object sender, EventArgs e)

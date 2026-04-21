@@ -9,7 +9,7 @@ namespace API_CompanyTest.Services
     {
         Task<DTO_Result<Product>> CreateProductAsync(DTO_Product product);
         Task<DTO_Result<Product>> SP_CreateProductAsync(DTO_Product product);
-        Task<DTO_Result<Product>> UpdateProductAsync(Guid id, DTO_Product dtoProduct);
+        Task<DTO_Result<Product>> UpdateProductAsync(DTO_Product dtoProduct);
         Task<DTO_Result<Product>> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<DTO_Product>?> GetAllProductsAsync();
@@ -49,9 +49,14 @@ namespace API_CompanyTest.Services
             return product;
         }
 
-        public async Task<DTO_Result<Product>> UpdateProductAsync(Guid id, DTO_Product dtoProduct)
+        public async Task<DTO_Result<Product>> UpdateProductAsync(DTO_Product dtoProduct)
         {
-            var result = await productRepo.UpdateProductAsync(id, dtoProduct);
+            if(dtoProduct.Id == Guid.Empty)
+            {
+                return new DTO_Result<Product>(false, "Invalid product ID");
+            }
+
+            var result = await productRepo.UpdateProductAsync(dtoProduct);
             return result;
         }
 

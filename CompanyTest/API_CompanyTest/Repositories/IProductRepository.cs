@@ -10,7 +10,7 @@ namespace API_CompanyTest.Repositories
     {
         Task<DTO_Result<Product>> CreateProductAsync(Product product);
         Task<DTO_Result<Product>> SP_CreateProductAsync(Product product);
-        Task<DTO_Result<Product>> UpdateProductAsync(Guid id, DTO_Product product);
+        Task<DTO_Result<Product>> UpdateProductAsync(DTO_Product product);
         Task<DTO_Result<Product>> DeleteProductAsync(Guid id);
         Task<Product?> GetProductByIdAsync(Guid id);
         Task<IEnumerable<Product>?> GetAllProductsAsync();
@@ -102,9 +102,9 @@ namespace API_CompanyTest.Repositories
             return product;
         }
 
-        public async Task<DTO_Result<Product>> UpdateProductAsync(Guid guid, DTO_Product dtoProduct)
+        public async Task<DTO_Result<Product>> UpdateProductAsync(DTO_Product dtoProduct)
         {
-            var target = await context.Products.FirstOrDefaultAsync(p => p.Id == guid);
+            var target = await context.Products.FirstOrDefaultAsync(p => p.Id == dtoProduct.Id);
 
             if (target == null)            
                 return new DTO_Result<Product>(false, "Product not found");
@@ -116,8 +116,6 @@ namespace API_CompanyTest.Repositories
                 target.Description = dtoProduct.Description;
                 target.Price = dtoProduct.Price;
                 target.Discount = dtoProduct.Discount;
-
-                //context.Entry(target).CurrentValues.SetValues(product);
 
                 await context.SaveChangesAsync();
                 return new DTO_Result<Product>(true, "Product update succesfully");
