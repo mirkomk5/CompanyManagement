@@ -9,5 +9,7 @@ namespace FE_CompanyTest.Misc
         public static readonly string API_CLAIMS_TABLE = "Claims/claims-table/";
         public static readonly string API_ORDERS_TABLE = "Orders/ordersTable/";
         public static readonly string API_PRODUCTS_TABLE = "Products/get-all-by-sp/";
+        public static readonly string API_CREATE_PRODUCT = "Products/create/";
+        public static readonly string API_UPDATE_PRODUCT = "Products/update/";
     }
 }

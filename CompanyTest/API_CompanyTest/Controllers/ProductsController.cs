@@ -68,20 +68,16 @@ namespace API_CompanyTest.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("update/{id}")]
-        public async Task<IActionResult> UpdateProduct(string id, [FromBody] DTO_Product dtoProduct)
+        [HttpPatch("update")]
+        public async Task<IActionResult> UpdateProduct([FromBody] DTO_Product dtoProduct)
         {
             // Validazione admin
             var adminCheck = IsValidAdminLevel(1);
             if (!adminCheck.state)
                 return StatusCode(403, adminCheck.message);
 
-            // Validazione id   
-            if (!Guid.TryParse(id, out var guidId))           
-                return BadRequest("Invalid product ID format");
-
             // Update prodotto
-            var result = await service.UpdateProductAsync(guidId, dtoProduct);
+            var result = await service.UpdateProductAsync(dtoProduct);
             return Ok(result);
         }
 

@@ -12,6 +12,7 @@ namespace DTO_CompanyTest
         public bool State { get; set; }
         public string Message { get; set; } = null!;
 
+        public DTO_Result() { }
         public DTO_Result(T data, bool state, string message)
         {
             Data = data;

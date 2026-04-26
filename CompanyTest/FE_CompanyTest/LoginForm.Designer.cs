@@ -105,7 +105,7 @@ namespace FE_CompanyTest
             buttonRegister.Name = "buttonRegister";
             buttonRegister.Size = new Size(207, 22);
             buttonRegister.TabIndex = 5;
-            buttonRegister.Text = "oppure Registrati";
+            buttonRegister.Text = "o crea un Account";
             buttonRegister.UseVisualStyleBackColor = true;
             buttonRegister.Click += buttonRegister_Click;
             // 
@@ -132,7 +132,9 @@ namespace FE_CompanyTest
             Controls.Add(mainIcon);
             Margin = new Padding(3, 2, 3, 2);
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
+            Load += LoginForm_Load;
             ((System.ComponentModel.ISupportInitialize)mainIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -9,7 +9,7 @@ namespace FE_CompanyTest
     {
         private bool _passIsVisible = false;
         private readonly IAuthService _authService;
-        private readonly IServiceProvider _serviceProvider; 
+        private readonly IServiceProvider _serviceProvider;
 
         public LoginForm(IAuthService authService, IServiceProvider serviceProvider)
         {
@@ -55,8 +55,8 @@ namespace FE_CompanyTest
 
             // Show Home dialog
             this.Hide();
-            
-            var homeForm = _serviceProvider.GetRequiredService<Home>(); 
+
+            var homeForm = _serviceProvider.GetRequiredService<Home>();
             homeForm.ShowDialog();
         }
 
@@ -68,7 +68,7 @@ namespace FE_CompanyTest
         /// <returns></returns>
         public bool IsFieldFilled()
         {
-            if(string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxPass.Text))
+            if (string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxPass.Text))
             {
                 labelLog.ForeColor = Color.IndianRed;
                 labelLog.Text = "Email o password non inserita.";
@@ -78,5 +78,10 @@ namespace FE_CompanyTest
         }
 
         #endregion
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
