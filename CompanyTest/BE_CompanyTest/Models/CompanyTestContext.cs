@@ -17,6 +17,8 @@ public partial class CompanyTestContext : DbContext
 
     public virtual DbSet<Claim> Claims { get; set; }
 
+    public virtual DbSet<Credential> Credentials { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
@@ -41,9 +43,21 @@ public partial class CompanyTestContext : DbContext
                 .HasConstraintName("FK_Claims_Products");
         });
 
+        modelBuilder.Entity<Credential>(entity =>
+        {
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Value).HasMaxLength(500);
+
+            entity.HasOne(d => d.User).WithMany(p => p.Credentials)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Credentials_Users");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.Notes).HasMaxLength(200);
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
@@ -71,6 +85,7 @@ public partial class CompanyTestContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Address).HasMaxLength(250);
             entity.Property(e => e.AdminLevel).HasDefaultValue(0);
+            entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.Surname).HasMaxLength(50);
         });

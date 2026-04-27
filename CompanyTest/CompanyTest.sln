@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_CompanyTest", "API_CompanyTest\API_CompanyTest.csproj", "{1B54D058-2816-4989-B2E7-CCFF0FE1A71F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO_CompanyTest", "DTO_Comp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE_CompanyTest", "BE_CompanyTest\BE_CompanyTest.csproj", "{7E201A9D-BF73-4953-806B-E55EE0F93A3E}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D22939DF-56E9-45EE-B78E-3BF378CC9AF6} = {D22939DF-56E9-45EE-B78E-3BF378CC9AF6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE_CompanyTest", "FE_CompanyTest\FE_CompanyTest.csproj", "{E068FB7F-6CA4-45F7-8A4B-26F0BA13447B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7E201A9D-BF73-4953-806B-E55EE0F93A3E} = {7E201A9D-BF73-4953-806B-E55EE0F93A3E}
 		{D22939DF-56E9-45EE-B78E-3BF378CC9AF6} = {D22939DF-56E9-45EE-B78E-3BF378CC9AF6}
 	EndProjectSection
 EndProject
@@ -34,6 +40,10 @@ Global
 		{7E201A9D-BF73-4953-806B-E55EE0F93A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E201A9D-BF73-4953-806B-E55EE0F93A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E201A9D-BF73-4953-806B-E55EE0F93A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E068FB7F-6CA4-45F7-8A4B-26F0BA13447B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E068FB7F-6CA4-45F7-8A4B-26F0BA13447B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E068FB7F-6CA4-45F7-8A4B-26F0BA13447B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E068FB7F-6CA4-45F7-8A4B-26F0BA13447B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

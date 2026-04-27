@@ -1,0 +1,54 @@
+﻿using DTO_CompanyTest;
+using FE_CompanyTest.Interfaces;
+using FE_CompanyTest.Misc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Json;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FE_CompanyTest.Services
+{
+    public class AuthService : IAuthService
+    {
+        private readonly HttpClient _httpClient;
+
+
+        public DTO_AuthResponse AuthResponse { get; set; }   
+
+        public AuthService()
+        {
+            _httpClient = new HttpClient();
+        }
+
+        public async Task<DTO_AuthResponse> LoginAsync(DTO_AuthRequest dto_auth)
+        {
+            var result = await _httpClient.PostAsJsonAsync(Constants.API_BASEURL + Constants.API_LOGIN, dto_auth);
+
+            if (result.IsSuccessStatusCode)
+            {
+                var response = await result.Content.ReadFromJsonAsync<DTO_AuthResponse>();
+                AuthResponse = response;
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
+        public async Task<DTO_AuthResponse> RegisterAsync(DTO_RegisterRequest dto_register)
+        {
+            var result = await _httpClient.PostAsJsonAsync(Constants.API_BASEURL + Constants.API_REGISTER, dto_register);
+            if (!result.IsSuccessStatusCode || result == null)
+            {
+                return null;
+            }
+
+            AuthResponse = result.Content.ReadFromJsonAsync<DTO_AuthResponse>().Result;
+            return AuthResponse;
+        }
+    }
+}
